@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammed Akib Iftakher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f2ec;
+    --surface:#ffffff;
+    --surface-2:#eae5d9;
+    --text:#1c1b17;
+    --text-dim:#5c5a51;
+    --accent:#a85a2c;
+    --accent-2:#385f7d;
+    --border:#ddd7c7;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#10131a;
+      --surface:#161b24;
+      --surface-2:#1d2430;
+      --text:#e9ecf1;
+      --text-dim:#93a0ae;
+      --accent:#d08a52;
+      --accent-2:#7fa4c9;
+      --border:#2a3140;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10131a;
+    --surface:#161b24;
+    --surface-2:#1d2430;
+    --text:#e9ecf1;
+    --text-dim:#93a0ae;
+    --accent:#d08a52;
+    --accent-2:#7fa4c9;
+    --border:#2a3140;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent-2);text-decoration:none;border-bottom:1px solid transparent;}
+  a:hover{border-bottom-color:currentColor;}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;letter-spacing:-0.01em;margin:0;}
+
+  .wrap{max-width:760px;margin:0 auto;padding:0 28px;}
+
+  /* ---- nav ---- */
+  nav{
+    position:sticky;top:0;z-index:10;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  nav .wrap{
+    display:flex;gap:22px;overflow-x:auto;
+    padding-top:14px;padding-bottom:14px;
+    scrollbar-width:none;
+  }
+  nav .wrap::-webkit-scrollbar{display:none;}
+  nav a{
+    color:var(--text-dim);font-size:0.86rem;white-space:nowrap;
+    font-weight:500;
+  }
+  nav a:hover{color:var(--text);}
+
+  /* ---- hero ---- */
+  header.hero{
+    padding:64px 0 40px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-loop{
+    position:absolute;
+    right:-40px;top:10px;
+    width:280px;height:280px;
+    opacity:0.55;
+    pointer-events:none;
+  }
+  @media (max-width:640px){ .hero-loop{ width:150px;height:150px;right:-30px;top:0; opacity:0.35;} }
+  .hero-loop path{fill:none;stroke:var(--accent);stroke-width:1.6;}
+  .hero-loop path.b{stroke:var(--accent-2);}
+
+  .kicker{
+    font-size:0.82rem;color:var(--text-dim);
+    margin-bottom:14px;max-width:420px;
+  }
+  h1.name{font-size:2.5rem;line-height:1.08;max-width:520px;}
+  .role{
+    font-size:1.05rem;color:var(--accent);
+    font-family:'Fraunces',serif;font-style:italic;
+    margin-top:8px;max-width:480px;
+  }
+  .meta-row{
+    margin-top:22px;display:flex;flex-wrap:wrap;gap:14px 22px;
+    font-size:0.88rem;color:var(--text-dim);
+  }
+  .meta-row a{color:var(--text-dim);}
+
+  /* ---- sections ---- */
+  section{padding:38px 0;border-top:1px solid var(--border);}
+  section:first-of-type{border-top:none;}
+  h2{font-size:1.35rem;margin-bottom:20px;}
+  h2 .num{color:var(--text-dim);font-family:'Inter',sans-serif;font-weight:500;font-size:0.9rem;margin-right:10px;}
+
+  p{margin:0 0 14px;color:var(--text);}
+  p:last-child{margin-bottom:0;}
+  .lede{font-size:1.02rem;max-width:640px;}
+
+  /* research/education entries */
+  .entry{margin-bottom:26px;}
+  .entry:last-child{margin-bottom:0;}
+  .entry-head{
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:12px;flex-wrap:wrap;margin-bottom:4px;
+  }
+  .entry-org{font-weight:600;font-size:0.98rem;}
+  .entry-loc{color:var(--text-dim);font-weight:400;font-size:0.88rem;}
+  .entry-date{
+    font-size:0.82rem;color:var(--accent);white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+  }
+  .entry-title{font-style:italic;color:var(--text-dim);font-size:0.92rem;margin-bottom:8px;}
+  ul.bullets{margin:0;padding-left:18px;}
+  ul.bullets li{margin-bottom:7px;font-size:0.95rem;}
+  ul.bullets li:last-child{margin-bottom:0;}
+
+  /* skills */
+  .skill-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+  .skill-row{
+    display:grid;grid-template-columns:150px 1fr;gap:14px;
+    padding:10px 0;border-bottom:1px solid var(--border);
+    font-size:0.92rem;
+  }
+  .skill-row:last-child{border-bottom:none;}
+  .skill-label{color:var(--accent-2);font-weight:600;}
+  @media (max-width:560px){
+    .skill-row{grid-template-columns:1fr;gap:4px;}
+  }
+
+  /* publications */
+  .pub-group{margin-bottom:24px;}
+  .pub-group:last-child{margin-bottom:0;}
+  .pub-group h3{
+    font-family:'Inter',sans-serif;font-weight:600;font-size:0.82rem;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);
+    margin-bottom:12px;
+  }
+  .pub{font-size:0.92rem;margin-bottom:14px;padding-left:16px;border-left:2px solid var(--border);}
+  .pub:last-child{margin-bottom:0;}
+  .pub b{font-weight:700;}
+  .pub .venue{color:var(--text-dim);}
+  .pub .doi{font-size:0.82rem;}
+
+  .note{font-size:0.82rem;color:var(--text-dim);margin-top:10px;}
+
+  /* talks/recognition simple lists */
+  .simple-list{margin:0;padding:0;list-style:none;}
+  .simple-list li{
+    padding:9px 0;border-bottom:1px solid var(--border);font-size:0.93rem;
+  }
+  .simple-list li:last-child{border-bottom:none;}
+  .simple-list b{color:var(--accent);font-weight:600;}
+
+  .tag-line{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .tag{
+    font-size:0.78rem;padding:3px 10px;border:1px solid var(--border);
+    border-radius:100px;color:var(--text-dim);
+  }
+
+  footer{
+    padding:40px 0 60px;color:var(--text-dim);font-size:0.85rem;
+  }
+  footer a{color:var(--text);}
+
+  ::selection{background:var(--accent);color:var(--bg);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#profile">Profile</a>
+    <a href="#research">Research</a>
+    <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#publications">Publications</a>
+    <a href="#talks">Talks</a>
+    <a href="#recognition">Recognition</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <svg class="hero-loop" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path class="a" d="M20,140 C 60,140 60,60 100,60 C 140,60 140,140 180,140" />
+    <path class="b" d="M20,60 C 60,60 60,140 100,140 C 140,140 140,60 180,60" />
+  </svg>
+  <div class="kicker">Palaiseau, France</div>
+  <h1 class="name">Mohammed Akib Iftakher</h1>
+  <div class="role">Hybrid Nanodevice / CMOS Systems &amp; Integrated Circuit Design</div>
+  <div class="meta-row">
+    <a href="mailto:akibiftakher@gmail.com">akibiftakher@gmail.com</a>
+    <span>+33 7 55 01 89 25</span>
+  </div>
+</header>
+
+<section id="profile" class="wrap">
+  <h2><span class="num">01</span>Profile</h2>
+  <p class="lede">Final-year PhD candidate at C2N/CNRS and Université Paris-Saclay, specializing in experimental nanoelectronics, automated device characterization, calibration, and statistical analysis. Experienced in developing Python-based measurement pipelines for MTJ/sMTJ and memristor/RRAM devices, including automated electrical and magnetic-field sweeps, stochastic modelling, uncertainty quantification, and experimental validation.</p>
+  <p>Background spans analog/digital circuit design, device&ndash;circuit co-design, and coordination of multi-institution experimental projects. Published in <i>Nature Communications</i>, IEDM, and VLSI.</p>
+</section>
+
+<section id="research" class="wrap">
+  <h2><span class="num">02</span>Research Experience</h2>
+
+  <div class="entry">
+    <div class="entry-head">
+      <div><span class="entry-org">Centre de Nanosciences et de Nanotechnologies (C2N), CNRS / Université Paris-Saclay</span> <span class="entry-loc">&mdash; Palaiseau, France</span></div>
+      <div class="entry-date">10/2023 &ndash; 11/2026</div>
+    </div>
+    <div class="entry-title">Doctoral Researcher &mdash; Physics-Inspired Computing</div>
+    <ul class="bullets">
+      <li>Developed Python-based automated measurement pipelines for MTJ/sMTJ and memristor/RRAM characterization, including automated voltage, current, and magnetic-field sweeps and experimental data acquisition.</li>
+      <li>Built device calibration and validation workflows, extracting switching probabilities, statistical distributions, residuals, uncertainty metrics, and confidence intervals.</li>
+      <li>Performed stochastic-device characterization and curve fitting to identify stable operating regions and establish quantitative validation/pass&ndash;fail criteria for experimental devices and datasets.</li>
+      <li>Developed end-to-end experimental workflows connecting device measurement, calibration, data analysis, and system-level validation for hybrid memristor&ndash;MTJ/CMOS computing systems.</li>
+      <li>Coordinated experimental activities across C2N, CEA-Leti, and external collaborators, linking device characterization, circuit design, and experimental validation.</li>
+      <li>Led collaborative research activities and supervised interns/Master's students, contributing to publications in <i>Nature Communications</i>, IEDM, and VLSI.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <div><span class="entry-org">Centre de Nanosciences et de Nanotechnologies (C2N)</span> <span class="entry-loc">&mdash; Palaiseau, France</span></div>
+      <div class="entry-date">03/2023 &ndash; 09/2023</div>
+    </div>
+    <div class="entry-title">Graduate Research Intern</div>
+    <ul class="bullets">
+      <li>Analyzed MTJ stochasticity to establish stable probability curves for energy-efficient probabilistic-bit generation.</li>
+      <li>Compared analog and digital circuit approaches (including PCSA/LFSR) for low-power optimization through energy analysis.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="education" class="wrap">
+  <h2><span class="num">03</span>Education</h2>
+
+  <div class="entry">
+    <div class="entry-head">
+      <div><span class="entry-org">CNRS and Université Paris-Saclay</span> <span class="entry-loc">&mdash; Palaiseau, France</span></div>
+      <div class="entry-date">10/2023 &ndash; 11/2026</div>
+    </div>
+    <div class="entry-title">PhD Candidate in Physics-Inspired Computing</div>
+    <p>Thesis: Design of Hybrid Nanodevice/CMOS Systems for Optimization and AI Applications.<br>Supervisors: Damien Querlioz and Louis Hutin.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <div><span class="entry-org">Université Paris-Saclay</span> <span class="entry-loc">&mdash; Gif-sur-Yvette, France</span></div>
+      <div class="entry-date">09/2021 &ndash; 09/2023</div>
+    </div>
+    <div class="entry-title">M2 Integration Circuits Systems</div>
+    <p>Results: 14.788/20.0 (M1: 14.202/20.0). IDEX Scholarship recipient.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <div><span class="entry-org">University of Malaya</span> <span class="entry-loc">&mdash; Kuala Lumpur, Malaysia</span></div>
+      <div class="entry-date">09/2016 &ndash; 08/2020</div>
+    </div>
+    <div class="entry-title">Bachelor of Science in Electrical Engineering</div>
+    <p>Results: CGPA 3.85/4.00; Dean's Award (6 times).</p>
+  </div>
+</section>
+
+<section id="skills" class="wrap">
+  <h2><span class="num">04</span>Technical Skills</h2>
+  <div class="skill-grid">
+    <div class="skill-row"><div class="skill-label">Device &amp; circuit</div><div>Hybrid nanodevice/CMOS co-design; memristor/RRAM; MTJ/sMTJ spintronics; analog/digital IC design; device and circuit modeling.</div></div>
+    <div class="skill-row"><div class="skill-label">EDA &amp; simulation</div><div>Cadence (Spectre, Layout, Ocean), COMSOL Multiphysics, MATLAB, Autodesk Eagle, Quartus.</div></div>
+    <div class="skill-row"><div class="skill-label">Hardware description</div><div>Verilog-A, VHDL.</div></div>
+    <div class="skill-row"><div class="skill-label">Programming &amp; AI</div><div>Python (PyTorch, JAX), C++, R.</div></div>
+    <div class="skill-row"><div class="skill-label">Languages</div><div>Bengali (first language), English (C1), French (B1).</div></div>
+  </div>
+
+  <h2 style="margin-top:38px;"><span class="num">&nbsp;</span>Additional Experience</h2>
+  <div class="entry">
+    <div class="entry-head">
+      <div><span class="entry-org">Huber+Suhner Sdn. Bhd.</span> <span class="entry-loc">&mdash; Kuala Lumpur, Malaysia</span></div>
+      <div class="entry-date">07/2019 &ndash; 09/2019</div>
+    </div>
+    <div class="entry-title">New Product Introduction Intern</div>
+    <ul class="bullets">
+      <li>Supported production transfer from technical drawings and resolved quality-assurance issues through functional analysis.</li>
+    </ul>
+  </div>
+  <p class="note">Also: Curriculum Developer, Teach for Bangladesh (2020&ndash;2021); Research Assistant, Motorola Solution Lab, University of Malaya (2017&ndash;2018).</p>
+</section>
+
+<section id="publications" class="wrap">
+  <h2><span class="num">05</span>Publications</h2>
+
+  <div class="pub-group">
+    <h3>Journal Articles</h3>
+    <div class="pub">
+      <b>M. A. Iftakher</b>*, H. Levices*, K.-E. Harabi, A. Renaudineau, M.-C. Faye, C. Bouchard, F. Disdier, B. Viala, E. Vianello, P. Talatchian, K. Garello, D. Querlioz, and L. Hutin, "Intrinsic annealing in a hybrid memristor&ndash;magnetic tunnel junction Ising machine," <span class="venue">Nature Communications, vol. 17, Art. no. 5246, 2026.</span>
+      <div class="doi"><a href="https://doi.org/10.1038/s41467-026-71844-8" target="_blank" rel="noopener">DOI: 10.1038/s41467-026-71844-8</a></div>
+    </div>
+    <div class="pub">
+      A. Renaudineau, M. H. Diallo, T. Dupuis, B. Imbert, <b>M. A. Iftakher</b>, K.-E. Harabi, C. Turck, T. Hirtzlin, D. Bonnet, F. Melul, J.-D. Aguirre-Morales, E. Vianello, M. Bocquet, J.-M. Portal, and D. Querlioz, "Forward-only learning in memristor arrays with month-scale stability," <span class="venue">Nature Communications, under review, 2026.</span>
+      <div class="doi"><a href="https://arxiv.org/abs/2601.09903" target="_blank" rel="noopener">Preprint: arXiv:2601.09903</a></div>
+    </div>
+    <div class="pub">
+      T. Ballet, A. Romdhane, B. Lovison-Franco, T. Dupuis, A. Renaudineau, F. Paiva Alencar, <b>M. A. Iftakher</b>, C. Turck, K.-E. Harabi, E. Vianello, J.-M. Portal, P. Beno&icirc;t, D. Novo, and D. Querlioz, "Uncertainty-triggered wake-up enables energy-efficient, error-resilient edge AI with memristor front ends," <span class="venue">Nature Communications, under review, 2026.</span>
+      <div class="doi"><a href="https://arxiv.org/abs/2605.29533" target="_blank" rel="noopener">Preprint: arXiv:2605.29533</a></div>
+    </div>
+  </div>
+
+  <div class="pub-group">
+    <h3>Peer-Reviewed Conference Papers</h3>
+    <div class="pub">
+      H. Levices, <b>M. A. Iftakher</b>, K.-E. Harabi, M.-C. Faye, P. Talatchian, K. Garello, D. Querlioz, and L. Hutin, "In-depth energy analysis of a hybrid sMTJ/RRAM Ising machine," <span class="venue">2026 International VLSI Symposium on Technology, Systems and Applications (VLSI-TSA), pp. 1&ndash;2.</span>
+      <div class="doi"><a href="https://doi.org/10.1109/VLSITSA69131.2026.11527654" target="_blank" rel="noopener">DOI: 10.1109/VLSITSA69131.2026.11527654</a></div>
+    </div>
+    <div class="pub">
+      M. Pallo*, S. D'Agostino*, M. Piccoli, D. Bonnet, N. Castellani, G. Piccolboni, <b>M. A. Iftakher</b>, J.-F. Nodin, F. Andrieu, D. Querlioz, G. Molas, L. Hutin, and E. Vianello, "On Chip Customized Learning on Resistive Memory Technology for Secure Edge AI," <span class="venue">2025 Symposium on VLSI Technology and Circuits.</span>
+      <div class="doi"><a href="https://doi.org/10.23919/VLSITechnologyandCir65189.2025.11074789" target="_blank" rel="noopener">DOI: 10.23919/VLSITechnologyandCir65189.2025.11074789</a></div>
+    </div>
+    <div class="pub">
+      B. Imbert, A. Renaudineau, M. H. Diallo, J.-D. Aguirre-Morales, <b>M. A. Iftakher</b>, K.-E. Harabi, C. Turck, M. Drouhin, T. Hirtzlin, E. Vianello, J.-M. Portal, M. Bocquet, and D. Querlioz, "Forward&ndash;Forward Learning Exploiting Low-Voltage Reset of RRAM," <span class="venue">2024 IEEE International Electron Devices Meeting (IEDM).</span>
+      <div class="doi"><a href="https://doi.org/10.1109/IEDM50854.2024.10873562" target="_blank" rel="noopener">DOI: 10.1109/IEDM50854.2024.10873562</a></div>
+    </div>
+  </div>
+
+  <div class="pub-group">
+    <h3>Accepted Conference Contributions (2026)</h3>
+    <div class="pub">
+      M. H. Diallo, <b>M. A. Iftakher</b>, A. Renaudineau, J.-D. Aguirre-Morales, E. Muhr, F. Jebali, J.-P. Walder, M.-C. Faye, K.-E. Harabi, F. Melul, E. Vianello, F. Andrieu, D. Querlioz, and J.-M. Portal, "Constant-Current-Read RRAM Analog In-Memory Computing for Energy-Efficient Forward Inference," <span class="venue">accepted for IEEE CCMC 2026, Lyon, France, Oct. 28&ndash;30, 2026.</span>
+    </div>
+    <div class="pub">
+      B. W. Walker*, <b>M. A. Iftakher</b>*, A. Renaudineau, K.-E. Harabi, M.-C. Faye, J.-M. Portal, T. Dalgaty, J. S. Friedman, E. Vianello, and D. Querlioz, "Experimental Metropolis-Adjusted Langevin Learning with Fully On-Chip ReRAM-to-ReRAM Sampling," <span class="venue">accepted for IEEE IEDM 2026.</span>
+    </div>
+    <div class="pub">
+      M. Piccoli*, A. Renaudineau*, <b>M. A. Iftakher</b>, K.-E. Harabi, M. Pallo, S. D'Agostino, J.-M. Portal, D. Querlioz, E. Vianello, and L. Hutin, "Exploiting ReRAM Write-Noise for Gradient Perturbation in Few-Update On-Chip Learning," <span class="venue">accepted for IEEE IEDM 2026.</span>
+    </div>
+    <p class="note">* Equal contribution.</p>
+  </div>
+</section>
+
+<section id="talks" class="wrap">
+  <h2><span class="num">06</span>Selected Presentations</h2>
+  <ul class="simple-list">
+    <li><b>Talk</b> &mdash; ISRDS 2026, Granada: "Hybrid Memristor&ndash;Magnetic Tunnel Junction Ising Machine."</li>
+    <li><b>Talk</b> &mdash; Spinion Symposium 2025, Paris: "Intrinsic Annealing in a Hybrid Memristor&ndash;Magnetic Tunnel Junction Ising Machine."</li>
+    <li><b>Poster</b> &mdash; IISM 2026, Singapore.</li>
+    <li><b>Poster</b> &mdash; Journ&eacute;es scientifiques du PEPR &Eacute;lectronique, 2026 and 2025.</li>
+    <li><b>Poster</b> &mdash; 5th International Symposium on Emerging Memory and Computing (ISMC 2025), Sofia.</li>
+  </ul>
+</section>
+
+<section id="recognition" class="wrap">
+  <h2><span class="num">07</span>Training, Recognition &amp; Certifications</h2>
+  <p><b style="color:var(--accent);font-weight:600;">Selected training:</b> DEEPLEARN 2024 (Porto); Tsinghua Global Summer Program 2022; Zhejiang University SDG Global Summer School 2022.</p>
+  <p><b style="color:var(--accent);font-weight:600;">Recognition:</b> IDEX Scholarship, Universit&eacute; Paris-Saclay; Hult Prize on-campus winner; Park of Future Hackathon challenge winner.</p>
+  <div class="tag-line">
+    <span class="tag">Google Professional Cloud Architect</span>
+    <span class="tag">Generative AI Leader</span>
+    <span class="tag">HCIA Big Data</span>
+  </div>
+</section>
+
+<section id="contact" class="wrap">
+  <h2><span class="num">08</span>Contact &amp; Referee</h2>
+  <p>Based in Palaiseau, France.<br>
+  Email: <a href="mailto:akibiftakher@gmail.com">akibiftakher@gmail.com</a><br>
+  Phone: +33 7 55 01 89 25</p>
+  <p style="margin-top:18px;"><b style="font-weight:600;">Referee</b><br>
+  Dr. Damien Querlioz &mdash; Research Director, CNRS, Palaiseau, France<br>
+  <a href="mailto:damien.querlioz@universite-paris-saclay.fr">damien.querlioz@universite-paris-saclay.fr</a></p>
+</section>
+
+<footer class="wrap">
+  Mohammed Akib Iftakher &middot; C2N / CNRS &amp; Universit&eacute; Paris-Saclay
+</footer>
+
+</body>
+</html>

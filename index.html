@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mohammed Akib Iftakher | Probabilistic and in-memory computing hardware</title>
+<meta name="description" content="Final-year PhD candidate at C2N (CNRS – Université Paris-Saclay) building probabilistic and in-memory computing hardware: stochastic-MTJ p-bits, memristor crossbars and their CMOS interfaces. Available from February 2027.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://akib20.github.io/">
+<meta property="og:title" content="Mohammed Akib Iftakher">
+<meta property="og:description" content="Probabilistic and in-memory computing hardware, from nanodevices to working systems.">
+<meta name="theme-color" content="#F3F5F8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1626" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 7 7 24h18z' fill='none' stroke='%2312243D' stroke-width='2'/%3E%3Ccircle cx='16' cy='7' r='5.5' fill='%230072B2'/%3E%3Ccircle cx='7' cy='24' r='5.5' fill='%23E69F00'/%3E%3Ccircle cx='25' cy='24' r='5.5' fill='%23CC79A7'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Mohammed Akib Iftakher",
+  "jobTitle": "Doctoral Researcher",
+  "affiliation": {"@type": "Organization", "name": "C2N, CNRS / Université Paris-Saclay"},
+  "email": "mailto:akibiftakher@gmail.com",
+  "url": "https://akib20.github.io/",
+  "sameAs": [
+    "https://www.linkedin.com/in/akib-iftakher",
+    "https://scholar.google.com/citations?user=w-ggaoAAAAAJ&hl=en",
+    "https://github.com/akib20"
+  ]
+}
+</script>
+<style>
+:root {
+  --paper: #F3F5F8;
+  --panel: #FFFFFF;
+  --ink: #12243D;
+  --muted: #4B5B70;
+  --line: #D3DAE3;
+  --line-strong: #9AA8BA;
+  --off: #E3E8EF;
+  --link: #005F96;
+  --c0: #0072B2;
+  --c1: #D68F00;
+  --c2: #B9578F;
+  --clash: #D1352B;
+  --note: #963A6F;
+  --sans: "Archivo", "Helvetica Neue", Arial, system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0E1626;
+    --panel: #132036;
+    --ink: #E4EAF2;
+    --muted: #9DABBD;
+    --line: #25344B;
+    --line-strong: #44587A;
+    --off: #22314A;
+    --link: #7CC4F0;
+    --c0: #4FB0E8;
+    --c1: #F0AE2A;
+    --c2: #E08BBE;
+    --clash: #FF6B5B;
+    --note: #E08BBE;
+    color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; scroll-padding-top: 4.75rem; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) {
+  :root { interpolate-size: allow-keywords; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-stretch: 100%;
+}
+a { color: var(--link); text-underline-offset: .18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--c0); outline-offset: 3px; border-radius: 3px; }
+p { margin: 0 0 1em; }
+ul { margin: 0; }
+.wrap { max-width: 76rem; margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 2.5rem); }
+.skip { position: absolute; left: -999px; top: .5rem; background: var(--ink); color: var(--paper); padding: .5rem .9rem; border-radius: 4px; z-index: 20; }
+.skip:focus { left: .5rem; }
+
+/* Header */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav { display: flex; align-items: center; gap: 1.5rem; min-height: 3.5rem; }
+.brand { font-weight: 700; font-stretch: 115%; color: var(--ink); text-decoration: none; white-space: nowrap; letter-spacing: -.01em; }
+.nav ul { display: flex; gap: .15rem; list-style: none; margin: 0 0 0 auto; padding: 0; overflow-x: auto; scrollbar-width: none; }
+.nav ul::-webkit-scrollbar { display: none; }
+.nav ul a { display: block; padding: .35rem .7rem; border-radius: 999px; color: var(--muted); text-decoration: none; font-size: .9375rem; white-space: nowrap; }
+.nav ul a:hover { color: var(--ink); }
+.nav ul a[aria-current="true"] { color: var(--ink); background: var(--off); }
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+  padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(3rem, 6vw, 5rem);
+}
+.hero h1 {
+  font-size: clamp(2.6rem, 1.2rem + 4.4vw, 5.25rem);
+  font-weight: 780;
+  font-stretch: 118%;
+  line-height: .95;
+  letter-spacing: -.02em;
+  margin: 0 0 1.5rem;
+}
+.lead { font-size: clamp(1.125rem, 1rem + .45vw, 1.3125rem); line-height: 1.5; max-width: 34rem; margin-bottom: 1.25rem; }
+.status { color: var(--muted); max-width: 34rem; margin-bottom: 1.75rem; }
+.status strong { color: var(--ink); font-weight: 600; }
+.cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 1.25rem; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  font: inherit; font-size: 1rem; font-weight: 600;
+  padding: .7rem 1.3rem; border-radius: 999px;
+  border: 1.5px solid var(--ink); text-decoration: none; cursor: pointer;
+}
+.btn-solid { background: var(--ink); color: var(--paper); }
+.btn-solid:hover { background: color-mix(in srgb, var(--ink) 85%, var(--c0)); }
+.btn-line { background: transparent; color: var(--ink); }
+.btn-line:hover { background: var(--off); }
+.profiles { display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; list-style: none; padding: 0; font-size: .9375rem; }
+
+/* Solver */
+.solver { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; }
+.solver-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: .9rem 1.1rem .2rem; }
+.solver-title { margin: 0; font-weight: 650; font-stretch: 108%; font-size: 1rem; }
+.solver-status { margin: 0; padding: 0 1.1rem; color: var(--muted); font-size: .9375rem; min-height: 1.6em; }
+.graph-wrap {
+  background-image: radial-gradient(circle, var(--line) 1px, transparent 1.4px);
+  background-size: 16px 16px;
+  background-position: center;
+  margin: .5rem 0 0;
+  border-block: 1px solid var(--line);
+}
+#graph { display: block; width: 100%; height: auto; max-height: 23rem; }
+#graph .edge { stroke: var(--line-strong); stroke-width: 2; stroke-linecap: round; }
+#graph .edge.clash { stroke: var(--clash); stroke-width: 3.5; stroke-dasharray: 7 5; }
+#graph .core { fill: var(--panel); stroke: var(--line-strong); stroke-width: 1.5; stroke-dasharray: 3 3; }
+#graph .core.is0 { fill: var(--c0); stroke: none; }
+#graph .core.is1 { fill: var(--c1); stroke: none; }
+#graph .core.is2 { fill: var(--c2); stroke: none; }
+#graph .arc { fill: none; stroke: var(--off); stroke-width: 6; stroke-linecap: round; }
+#graph .arc.on.c0 { stroke: var(--c0); }
+#graph .arc.on.c1 { stroke: var(--c1); }
+#graph .arc.on.c2 { stroke: var(--c2); }
+.readout { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .5rem 1rem; margin: 0; padding: .8rem 1.1rem .2rem; }
+.readout div { min-width: 0; }
+.readout dt { font-size: .8125rem; color: var(--muted); line-height: 1.3; }
+.readout dd { margin: 0; font-size: 1.375rem; font-weight: 620; font-stretch: 108%; font-variant-numeric: tabular-nums; }
+.trace-wrap { padding: .2rem 1.1rem 0; }
+.trace { display: block; width: 100%; height: 40px; }
+.trace path { fill: none; stroke: var(--ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.trace .base { stroke: var(--line); stroke-width: 1; }
+.trace-label { font-size: .8125rem; color: var(--muted); margin: .2rem 0 0; }
+.controls { display: flex; flex-wrap: wrap; align-items: end; gap: .9rem 1rem; padding: .9rem 1.1rem 1rem; }
+.controls .btn { font-size: .9375rem; padding: .5rem 1rem; }
+.temp { flex: 1 1 12rem; min-width: 12rem; }
+.temp label { display: block; font-size: .8125rem; color: var(--muted); margin-bottom: .15rem; }
+.temp-row { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .6rem; font-size: .8125rem; color: var(--muted); }
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 1.5rem; margin: 0; background: transparent; cursor: pointer; }
+input[type="range"]::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--c1), var(--c0)); }
+input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--c1), var(--c0)); }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; margin-top: -6px; border-radius: 50%; background: var(--panel); border: 2px solid var(--ink); }
+input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--panel); border: 2px solid var(--ink); }
+.solver figcaption { padding: 1rem 1.1rem 1.1rem; border-top: 1px solid var(--line); font-size: .9375rem; color: var(--muted); line-height: 1.55; }
+.solver figcaption p:last-child { margin: 0; }
+
+/* Sections */
+.section {
+  display: grid;
+  grid-template-columns: 12.5rem minmax(0, 1fr);
+  gap: 1rem 2.5rem;
+  padding-block: clamp(3rem, 6vw, 4.5rem);
+  border-top: 1px solid var(--line);
+}
+.section > h2 {
+  position: sticky; top: 5rem; align-self: start;
+  margin: 0; font-size: 1.625rem; line-height: 1.15;
+  font-weight: 700; font-stretch: 115%; letter-spacing: -.01em;
+}
+.section-body { max-width: 46rem; }
+.section-body > p { max-width: 40rem; }
+h3 { margin: 0; font-size: 1.1875rem; font-weight: 650; font-stretch: 106%; line-height: 1.3; }
+.muted { color: var(--muted); }
+
+/* Selected work */
+.work { list-style: none; padding: 0; }
+.work > li { border-top: 1px solid var(--line); }
+.work > li:last-child { border-bottom: 1px solid var(--line); }
+.work summary {
+  list-style: none; cursor: pointer;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 1.5rem;
+  padding: 1.2rem 0;
+}
+.work summary::-webkit-details-marker { display: none; }
+.work summary > * { grid-column: 1; }
+.work summary .meta { display: block; color: var(--muted); font-size: .9375rem; margin-top: .15rem; }
+.work summary .desc { display: block; margin-top: .45rem; max-width: 40rem; }
+.work summary:hover h3 { color: var(--link); }
+.toggle {
+  grid-column: 2 !important; grid-row: 1 / span 3; align-self: start;
+  position: relative; width: 2rem; height: 2rem; margin-top: .1rem;
+  border: 1px solid var(--line-strong); border-radius: 50%;
+}
+.toggle::before, .toggle::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: 11px; height: 1.5px; background: var(--ink);
+  transform: translate(-50%, -50%);
+}
+.toggle::after { transform: translate(-50%, -50%) rotate(90deg); transition: transform .25s ease; }
+details[open] .toggle::after { transform: translate(-50%, -50%) rotate(0deg); }
+.work .body { padding: 0 3.5rem 1.4rem 0; max-width: 43rem; }
+.work .body ul { padding-left: 1.1rem; margin-bottom: .75rem; }
+.work .body li { margin-bottom: .35rem; }
+.work .body li::marker { color: var(--line-strong); }
+.work .links { display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; margin: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .work details::details-content {
+    block-size: 0; overflow: hidden;
+    transition: block-size .3s ease, content-visibility .3s allow-discrete;
+  }
+  .work details[open]::details-content { block-size: auto; }
+}
+
+/* Timelines (experience, education) */
+.timeline { list-style: none; padding: 0; }
+.timeline > li {
+  display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: .25rem 1.5rem;
+  padding: 1.15rem 0; border-top: 1px solid var(--line);
+}
+.timeline > li:last-child { border-bottom: 1px solid var(--line); }
+.when { color: var(--muted); font-size: .9375rem; font-variant-numeric: tabular-nums; padding-top: .12rem; white-space: nowrap; }
+.timeline .org { color: var(--muted); font-size: .9375rem; margin: .1rem 0 .45rem; }
+.timeline p:last-child { margin-bottom: 0; }
+
+/* Publications */
+.filters { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 .75rem; padding: 0; list-style: none; }
+.filters button {
+  font: inherit; font-size: .9375rem; line-height: 1.3;
+  padding: .45rem .95rem; border-radius: 999px;
+  border: 1px solid var(--line-strong); background: transparent; color: var(--ink); cursor: pointer;
+}
+.filters button:hover { background: var(--off); }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.filters .count { margin-left: .4rem; opacity: .7; font-variant-numeric: tabular-nums; }
+.pub-count { font-size: .9375rem; color: var(--muted); margin-bottom: 1rem; }
+.pubs { list-style: none; padding: 0; }
+.pub { padding: 1.15rem 0; border-top: 1px solid var(--line); }
+.pubs > .pub:last-child { border-bottom: 1px solid var(--line); }
+.pub-title { font-weight: 620; font-size: 1.0625rem; line-height: 1.38; margin: 0 0 .35rem; }
+.pub-authors { margin: 0; color: var(--muted); font-size: .9375rem; line-height: 1.5; }
+.pub-authors strong { color: var(--ink); font-weight: 650; }
+.pub-venue { margin: .25rem 0 0; font-size: .9375rem; }
+.pub-note { color: var(--note); font-weight: 600; }
+.pub-actions a { overflow-wrap: anywhere; }
+.pub-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1.25rem; margin-top: .55rem; font-size: .9375rem; }
+.linkbtn {
+  font: inherit; color: var(--link); background: none; border: 0; padding: 0; cursor: pointer;
+  text-decoration: underline; text-underline-offset: .18em; text-decoration-thickness: 1px;
+}
+.linkbtn:hover { text-decoration-thickness: 2px; }
+.footnote { font-size: .875rem; color: var(--muted); margin-top: 1rem; }
+
+/* Definition lists (skills, recognition, contact) */
+.defs { margin: 0; display: grid; grid-template-columns: 12rem minmax(0, 1fr); column-gap: 0; }
+.defs dt, .defs dd { padding: .9rem 0; border-top: 1px solid var(--line); }
+.defs dt { font-weight: 620; line-height: 1.4; padding-right: 1.5rem; }
+.defs dd { margin: 0; }
+.defs dt:last-of-type, .defs dd:last-of-type { border-bottom: 1px solid var(--line); }
+.defs dd ul { padding-left: 1.1rem; }
+.defs dd li { margin-bottom: .2rem; }
+
+/* Talks */
+.talks { list-style: none; padding: 0; }
+.talks li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1rem; padding: .85rem 0; border-top: 1px solid var(--line); }
+.talks li:last-child { border-bottom: 1px solid var(--line); }
+.kind { color: var(--muted); font-size: .9375rem; padding-top: .05rem; }
+
+/* Contact */
+.email-row { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.25rem; margin-bottom: 2rem; }
+.email-big {
+  font-size: clamp(1.45rem, .9rem + 2.4vw, 2.6rem); font-weight: 720; font-stretch: 112%;
+  letter-spacing: -.015em; color: var(--ink); text-decoration-color: var(--line-strong);
+  overflow-wrap: anywhere; line-height: 1.15;
+}
+.email-big:hover { text-decoration-color: var(--ink); }
+
+.site-footer { border-top: 1px solid var(--line); padding-block: 2rem 2.5rem; color: var(--muted); font-size: .875rem; }
+.site-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; }
+
+/* Responsive */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .hero-text { max-width: 40rem; }
+  .solver { max-width: 40rem; }
+  .section { grid-template-columns: minmax(0, 1fr); }
+  .section > h2 { position: static; }
+}
+@media (max-width: 720px) {
+  .nav { flex-wrap: wrap; gap: 0; padding-block: .45rem .35rem; }
+  .nav ul { margin: .2rem -.7rem 0; width: calc(100% + 1.4rem); }
+  .readout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .timeline > li { grid-template-columns: minmax(0, 1fr); }
+  .defs { grid-template-columns: minmax(0, 1fr); }
+  .defs dd { border-top: 0; padding-top: 0; }
+  .defs dt:last-of-type { border-bottom: 0; }
+  .work .body { padding-right: 0; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <nav class="nav wrap" aria-label="Sections">
+    <a class="brand" href="#top">Akib Iftakher</a>
+    <ul>
+      <li><a href="#research">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#talks">Talks</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero wrap" id="top" aria-labelledby="name">
+    <div class="hero-text">
+      <h1 id="name">Mohammed Akib Iftakher</h1>
+      <p class="lead">I build computing hardware that puts noise to work: p-bits made from stochastic magnetic tunnel junctions, memristor crossbars, and the CMOS circuits that connect them.</p>
+      <p class="status"><strong>PhD defense in November 2026, available from February 2027.</strong> Looking for hardware R&amp;D, silicon validation, applications engineering and device–circuit co-design roles in energy-efficient AI hardware. Open to relocating within Europe.</p>
+      <div class="cta">
+        <a class="btn btn-solid" href="mailto:akibiftakher@gmail.com">Email me</a>
+        <a class="btn btn-line" href="Mohammed_Akib_Iftakher_CV.pdf" download>Download CV</a>
+      </div>
+      <ul class="profiles">
+        <li><a href="https://www.linkedin.com/in/akib-iftakher" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://scholar.google.com/citations?user=w-ggaoAAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a></li>
+        <li><a href="https://github.com/akib20" rel="noopener">GitHub</a></li>
+      </ul>
+    </div>
+
+    <figure class="solver" aria-labelledby="solver-title">
+      <div class="solver-head">
+        <p class="solver-title" id="solver-title">A p-bit Ising machine, running live</p>
+      </div>
+      <p class="solver-status" id="solver-status" aria-live="polite">Press Anneal to watch the p-bits settle.</p>
+      <div class="graph-wrap">
+        <svg id="graph" viewBox="0 0 400 322" role="img" aria-label="A ten-node graph. Each node is drawn as three p-bits, one per color. The p-bits flip at random and settle into a coloring where no two connected nodes share a color."></svg>
+        <noscript><p style="padding:1rem">The live demo needs JavaScript.</p></noscript>
+      </div>
+      <dl class="readout">
+        <div><dt>Color clashes</dt><dd id="r-clash">0</dd></div>
+        <div><dt>Undecided nodes</dt><dd id="r-bad">0</dd></div>
+        <div><dt>Sweeps</dt><dd id="r-sweep">0</dd></div>
+        <div><dt>β</dt><dd id="r-beta">0.10</dd></div>
+      </dl>
+      <div class="trace-wrap">
+        <svg class="trace" viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true">
+          <path class="base" d="M0 39.5H180"></path>
+          <path id="trace-line" d=""></path>
+        </svg>
+        <p class="trace-label">Energy (clashes plus undecided nodes) over the last 180 sweeps</p>
+      </div>
+      <div class="controls">
+        <button type="button" class="btn btn-solid" id="anneal">Anneal</button>
+        <button type="button" class="btn btn-line" id="pause">Pause</button>
+        <div class="temp">
+          <label for="beta">Temperature</label>
+          <div class="temp-row">
+            <span aria-hidden="true">Hot</span>
+            <input id="beta" type="range" min="0" max="100" step="1" value="0">
+            <span aria-hidden="true">Cold</span>
+          </div>
+        </div>
+      </div>
+      <figcaption>
+        <p>Ten nodes, three colors, thirty p-bits: the same size as the graph-coloring problem solved on my hybrid chip. Each ring segment is one p-bit that switches at random, with odds set by its neighbors. While the system is hot it explores; as β rises it settles, and connected nodes stop sharing a color.</p>
+        <p>On the chip, stochastic magnetic tunnel junctions do the switching and a memristor crossbar holds the couplings, with the annealing built into the read voltage. Drag the slider to heat it back up yourself.</p>
+      </figcaption>
+    </figure>
+  </section>
+
+  <div class="wrap">
+    <section class="section" id="profile" aria-labelledby="h-profile">
+      <h2 id="h-profile">Profile</h2>
+      <div class="section-body">
+        <p>I’m a final-year PhD candidate at C2N (CNRS – Université Paris-Saclay), supervised by Damien Querlioz and Louis Hutin. My work takes probabilistic and in-memory computing from single nanodevices to working systems: stochastic-MTJ p-bits, memristor crossbars and their CMOS interfaces.</p>
+        <p>Day to day that means Cadence circuit design, PCB design and Python-automated characterization at the probe station. I’m currently designing 130 nm ferroelectric memory circuits for a June 2027 tape-out.</p>
+        <p>I’m co-first author of a <em>Nature Communications</em> paper on a hybrid p-bit/memristor Ising machine, featured in a <a href="https://www.leti-cea.com/cea-tech/leti/english/Pages/What%27s-On/Press%20release/PR-Nature-Communications-Paper.aspx" rel="noopener">CEA-Leti press release</a> in September 2026, and of an <a href="https://ieee-iedm.org/press/press-kit/#IEDM-Photos:~:text=Paper%2031.4%20Experimental%20Metropolis%2DAdjusted%20Langevin%20Learning" rel="noopener">IEDM 2026 publicity highlight</a> on fully on-chip ReRAM-to-ReRAM sampling. Across my publications: two <em>Nature Communications</em> papers, three at IEDM, and one at the VLSI Symposium. I also hold Google Cloud Professional Cloud Architect and Generative AI Leader certifications.</p>
+      </div>
+    </section>
+
+    <section class="section" id="research" aria-labelledby="h-research">
+      <h2 id="h-research">Selected work</h2>
+      <div class="section-body">
+        <ul class="work">
+          <li>
+            <details>
+              <summary>
+                <h3>Hybrid memristor–MTJ Ising machine</h3>
+                <span class="meta"><em>Nature Communications</em>, 2026. Co-first author. Featured by CEA-Leti.</span>
+                <span class="desc">Stochastic magnetic tunnel junctions integrated with CMOS act as p-bits, and a HfOx memristor crossbar stores multi-level couplings. Annealing comes from the read voltage, so no ADCs are needed.</span>
+                <span class="toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="body">
+                <ul>
+                  <li>Reached the global optimum in 3 of 3 independent runs, on both a 24-node weighted Max-Cut and a 10-node, 3-color graph-coloring problem (30 spins).</li>
+                  <li>Sigmoidal p-bit response held down to 130 ns pulses, supporting update rates above 10 MHz.</li>
+                  <li>Memristor couplings drifted by less than 15 µS over one month and still produced the optimal coloring.</li>
+                  <li>All measurements at room temperature, with no applied magnetic field.</li>
+                </ul>
+                <p class="links"><a href="https://doi.org/10.1038/s41467-026-71844-8" rel="noopener">Read the paper</a><a href="https://www.leti-cea.com/cea-tech/leti/english/Pages/What%27s-On/Press%20release/PR-Nature-Communications-Paper.aspx" rel="noopener">Read CEA-Leti’s press release</a></p>
+              </div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>
+                <h3>Langevin learning with fully on-chip ReRAM sampling</h3>
+                <span class="meta">IEDM 2026, publicity highlight. Co-first author.</span>
+                <span class="desc">An experimental demonstration of Metropolis-adjusted Langevin learning in which sampling runs entirely on chip, ReRAM to ReRAM.</span>
+                <span class="toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="body">
+                <ul>
+                  <li>Selected by IEDM as one of its 2026 publicity highlights, with figures in the conference’s press kit as paper 31.4.</li>
+                  <li>Co-first author with B. W. Walker, with colleagues at C2N, CEA-Leti and partner institutions.</li>
+                </ul>
+                <p class="links"><a href="https://ieee-iedm.org/press/press-kit/#IEDM-Photos:~:text=Paper%2031.4%20Experimental%20Metropolis%2DAdjusted%20Langevin%20Learning" rel="noopener">See paper 31.4 in the IEDM press kit</a><a href="#publications" data-jump="cofirst">See it in publications</a></p>
+              </div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>
+                <h3>Energy budget of a parallel sMTJ/RRAM Ising machine</h3>
+                <span class="meta">VLSI-TSA 2026. Co-author.</span>
+                <span class="desc">A 22 nm projection, built on a Cadence-validated model, of how much energy a parallel sMTJ/RRAM Ising machine needs per solve.</span>
+                <span class="toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="body">
+                <ul>
+                  <li>Under 36 µW per spin update.</li>
+                  <li>0.6 pJ to 23 nJ per solve across MaxSAT, Max-Cut and graph coloring; under 2.1 nJ for the 24-node Max-Cut.</li>
+                  <li>Holds in both Ising and QUBO formulations.</li>
+                  <li>Showed that peripheral amplifiers, not the sMTJs or RRAM, dominate power.</li>
+                </ul>
+                <a href="https://doi.org/10.1109/VLSITSA69131.2026.11527654" rel="noopener">Read the paper</a>
+              </div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>
+                <h3>On-chip learning in RRAM arrays</h3>
+                <span class="meta">With CEA-Leti. <em>Nature Communications</em> 2026; IEDM 2024 and 2026; VLSI Symposium 2025.</span>
+                <span class="desc">Training that happens inside resistive memory arrays instead of on a separate processor.</span>
+                <span class="toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="body">
+                <ul>
+                  <li>Forward-only learning with month-scale stability (<em>Nature Communications</em>, accepted 2026).</li>
+                  <li>Forward–Forward learning using the low-voltage reset of RRAM (IEDM 2024).</li>
+                  <li>ReRAM write noise used as gradient perturbation for few-update learning (IEDM 2026).</li>
+                  <li>Customized on-chip learning for secure edge AI (VLSI Symposium 2025).</li>
+                </ul>
+                <a href="#publications" data-jump="all">See all publications</a>
+              </div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>
+                <h3>Ferroelectric memory tape-out and crossbar test board</h3>
+                <span class="meta">In progress, 2026–2027.</span>
+                <span class="desc">New silicon and a new board: ferroelectric non-volatile memory circuits in 130 nm, and a PCB for a memristor-crossbar platform.</span>
+                <span class="toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="body">
+                <ul>
+                  <li>Ferroelectric NVM circuits in a 130 nm process, designed in Cadence Virtuoso and Spectre.</li>
+                  <li>A PCB for a memristor-crossbar platform with electrical-to-optical signal conversion and hardware interfacing.</li>
+                </ul>
+              </div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>
+                <h3>Automated device characterization</h3>
+                <span class="meta">Python and PyVISA.</span>
+                <span class="desc">The measurement stack behind the papers: instrument control, calibration, characterization and data acquisition.</span>
+                <span class="toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="body">
+                <ul>
+                  <li>Drives Keysight B1530A, Keysight oscilloscopes and probe stations from Python.</li>
+                  <li>Automated voltage, current and magnetic-field sweeps for MTJ/sMTJ and memristor/RRAM devices.</li>
+                  <li>Extracts switching probabilities and their distributions, with uncertainty metrics and confidence intervals, to set pass/fail criteria for devices and datasets.</li>
+                </ul>
+              </div>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="experience" aria-labelledby="h-experience">
+      <h2 id="h-experience">Experience</h2>
+      <div class="section-body">
+        <ol class="timeline" reversed>
+          <li>
+            <span class="when">10/2023 – 11/2026</span>
+            <div>
+              <h3>Doctoral Researcher, Physics-Inspired Computing Hardware</h3>
+              <p class="org">C2N, CNRS / Université Paris-Saclay, Palaiseau, France</p>
+              <p>Built and measured hybrid nanodevice/CMOS systems for optimization and AI, from p-bit characterization to full Ising-machine demonstrations. Coordinated technical work across C2N, CEA-Leti and external collaborators, and supervised incoming PhD researchers.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">03/2023 – 09/2023</span>
+            <div>
+              <h3>Graduate Research Intern, Probabilistic Computing</h3>
+              <p class="org">C2N, CNRS / Université Paris-Saclay, Palaiseau, France</p>
+              <p>Characterized stochastic MTJ switching to build stable probability curves for p-bit generation, and benchmarked analog against digital p-bit circuits (PCSA, LFSR) by energy.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">2020 – 2021</span>
+            <div>
+              <h3>Curriculum Developer</h3>
+              <p class="org">Teach for Bangladesh</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">07/2019 – 09/2019</span>
+            <div>
+              <h3>New Product Introduction Intern</h3>
+              <p class="org">Huber+Suhner, Kuala Lumpur, Malaysia</p>
+              <p>Supported production transfer from technical drawings and resolved quality-assurance issues through functional analysis.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">2017 – 2018</span>
+            <div>
+              <h3>Research Assistant</h3>
+              <p class="org">Motorola Solutions Lab, University of Malaya, Kuala Lumpur, Malaysia</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="publications" aria-labelledby="h-publications">
+      <h2 id="h-publications">Publications</h2>
+      <div class="section-body">
+        <ul class="filters" aria-label="Filter publications">
+          <li><button type="button" data-filter="all" aria-pressed="true">All<span class="count"></span></button></li>
+          <li><button type="button" data-filter="journal" aria-pressed="false">Journals<span class="count"></span></button></li>
+          <li><button type="button" data-filter="conference" aria-pressed="false">Conferences<span class="count"></span></button></li>
+          <li><button type="button" data-filter="cofirst" aria-pressed="false">Co-first author<span class="count"></span></button></li>
+        </ul>
+        <p class="pub-count" id="pub-count" aria-live="polite"></p>
+        <ol class="pubs">
+          <li class="pub" data-type="journal" data-cofirst="true" data-doi="10.1038/s41467-026-71844-8">
+            <p class="pub-title">Intrinsic annealing in a hybrid memristor–magnetic tunnel junction Ising machine</p>
+            <p class="pub-authors"><strong>M. A. Iftakher</strong>*, H. Levices*, K.-E. Harabi, A. Renaudineau, M.-C. Faye, C. Bouchard, F. Disdier, B. Viala, E. Vianello, P. Talatchian, K. Garello, D. Querlioz, and L. Hutin</p>
+            <p class="pub-venue"><em>Nature Communications</em>, vol. 17, art. no. 5246, 2026</p>
+            <div class="pub-actions"><a href="https://doi.org/10.1038/s41467-026-71844-8" rel="noopener">DOI: 10.1038/s41467-026-71844-8</a><a href="https://www.leti-cea.com/cea-tech/leti/english/Pages/What%27s-On/Press%20release/PR-Nature-Communications-Paper.aspx" rel="noopener">CEA-Leti press release</a><button type="button" class="linkbtn copy-cite">Copy citation</button></div>
+          </li>
+          <li class="pub" data-type="conference" data-cofirst="true">
+            <p class="pub-title">Experimental Metropolis-Adjusted Langevin Learning with Fully On-Chip ReRAM-to-ReRAM Sampling</p>
+            <p class="pub-authors">B. W. Walker*, <strong>M. A. Iftakher</strong>*, A. Renaudineau, K.-E. Harabi, M.-C. Faye, J.-M. Portal, T. Dalgaty, J. S. Friedman, E. Vianello, and D. Querlioz</p>
+            <p class="pub-venue">IEEE International Electron Devices Meeting (IEDM), 2026, paper 31.4, to appear. <span class="pub-note">IEDM 2026 publicity highlight.</span></p>
+            <div class="pub-actions"><a href="https://ieee-iedm.org/press/press-kit/#IEDM-Photos:~:text=Paper%2031.4%20Experimental%20Metropolis%2DAdjusted%20Langevin%20Learning" rel="noopener">IEDM press kit: paper 31.4</a><button type="button" class="linkbtn copy-cite">Copy citation</button></div>
+          </li>
+          <li class="pub" data-type="journal" data-cofirst="false" data-arxiv="2601.09903">
+            <p class="pub-title">Forward-only learning in memristor arrays with month-scale stability</p>
+            <p class="pub-authors">A. Renaudineau, M. H. Diallo, T. Dupuis, B. Imbert, <strong>M. A. Iftakher</strong>, K.-E. Harabi, C. Turck, T. Hirtzlin, D. Bonnet, F. Melul, J.-D. Aguirre-Morales, E. Vianello, M. Bocquet, J.-M. Portal, and D. Querlioz</p>
+            <p class="pub-venue"><em>Nature Communications</em>, accepted, 2026</p>
+            <div class="pub-actions"><a href="https://arxiv.org/abs/2601.09903" rel="noopener">Preprint: arXiv:2601.09903</a><button type="button" class="linkbtn copy-cite">Copy citation</button></div>
+          </li>
+          <li class="pub" data-type="conference" data-cofirst="false">
+            <p class="pub-title">Exploiting ReRAM Write-Noise for Gradient Perturbation in Few-Update On-Chip Learning</p>
+            <p class="pub-authors">M. Piccoli*, A. Renaudineau*, <strong>M. A. Iftakher</strong>, K.-E. Harabi, M. Pallo, S. D’Agostino, J.-M. Portal, D. Querlioz, E. Vianello, and L. Hutin</p>
+            <p class="pub-venue">IEEE International Electron Devices Meeting (IEDM), 2026, to appear</p>
+            <div class="pub-actions"><button type="button" class="linkbtn copy-cite">Copy citation</button></div>
+          </li>
+          <li class="pub" data-type="conference" data-cofirst="false">
+            <p class="pub-title">Constant-Current-Read RRAM Analog In-Memory Computing for Energy-Efficient Forward Inference</p>
+            <p class="pub-authors">M. H. Diallo, <strong>M. A. Iftakher</strong>, A. Renaudineau, J.-D. Aguirre-Morales, E. Muhr, F. Jebali, J.-P. Walder, M.-C. Faye, K.-E. Harabi, F. Melul, E. Vianello, F. Andrieu, D. Querlioz, and J.-M. Portal</p>
+            <p class="pub-venue">IEEE CCMC 2026, Lyon, France, Oct. 28–30, 2026</p>
+            <div class="pub-actions"><button type="button" class="linkbtn copy-cite">Copy citation</button></div>
+          </li>
+          <li class="pub" data-type="conference" data-cofirst="false" data-doi="10.1109/VLSITSA69131.2026.11527654">
+            <p class="pub-title">In-depth energy analysis of a hybrid sMTJ/RRAM Ising machine</p>
+            <p class="pub-authors">H. Levices, <strong>M. A. Iftakher</strong>, K.-E. Harabi, M.-C. Faye, P. Talatchian, K. Garello, D. Querlioz, and L. Hutin</p>
+            <p class="pub-venue">International VLSI Symposium on Technology, Systems and Applications (VLSI-TSA), 2026, pp. 1–2</p>
+            <div class="pub-actions"><a href="https://doi.org/10.1109/VLSITSA69131.2026.11527654" rel="noopener">DOI: 10.1109/VLSITSA69131.2026.11527654</a><button type="button" class="linkbtn copy-cite">Copy citation</button></div>
+          </li>
+          <li class="pub" data-type="journal" data-cofirst="false" data-arxiv="2605.29533">
+            <p class="pub-title">Uncertainty-triggered wake-up enables energy-efficient, error-resilient edge AI with memristor front ends</p>
+            <p class="pub-authors">T. Ballet, A. Romdhane, B. Lovison-Franco, T. Dupuis, A. Renaudineau, F. Paiva Alencar, <strong>M. A. Iftakher</strong>, C. Turck, K.-E. Harabi, E. Vianello, J.-M. Portal, P. Benoît, D. Novo, and D. Querlioz</p>
+            <p class="pub-venue"><em>Nature Communications</em>, under review, 2026</p>
+            <div class="pub-actions"><a href="https://arxiv.org/abs/2605.29533" rel="noopener">Preprint: arXiv:2605.29533</a><button type="button" class="linkbtn copy-cite">Copy citation</button></div>
+          </li>
+          <li class="pub" data-type="conference" data-cofirst="false" data-doi="10.23919/VLSITechnologyandCir65189.2025.11074789">
+            <p class="pub-title">On Chip Customized Learning on Resistive Memory Technology for Secure Edge AI</p>
+            <p class="pub-authors">M. Pallo*, S. D’Agostino*, M. Piccoli, D. Bonnet, N. Castellani, G. Piccolboni, <strong>M. A. Iftakher</strong>, J.-F. Nodin, F. Andrieu, D. Querlioz, G. Molas, L. Hutin, and E. Vianello</p>
+            <p class="pub-venue">Symposium on VLSI Technology and Circuits, 2025</p>
+            <div class="pub-actions"><a href="https://doi.org/10.23919/VLSITechnologyandCir65189.2025.11074789" rel="noopener">DOI: 10.23919/VLSITechnologyandCir65189.2025.11074789</a><button type="button" class="linkbtn copy-cite">Copy citation</button></div>
+          </li>
+          <li class="pub" data-type="conference" data-cofirst="false" data-doi="10.1109/IEDM50854.2024.10873562">
+            <p class="pub-title">Forward–Forward Learning Exploiting Low-Voltage Reset of RRAM</p>
+            <p class="pub-authors">B. Imbert, A. Renaudineau, M. H. Diallo, J.-D. Aguirre-Morales, <strong>M. A. Iftakher</strong>, K.-E. Harabi, C. Turck, M. Drouhin, T. Hirtzlin, E. Vianello, J.-M. Portal, M. Bocquet, and D. Querlioz</p>
+            <p class="pub-venue">IEEE International Electron Devices Meeting (IEDM), 2024</p>
+            <div class="pub-actions"><a href="https://doi.org/10.1109/IEDM50854.2024.10873562" rel="noopener">DOI: 10.1109/IEDM50854.2024.10873562</a><button type="button" class="linkbtn copy-cite">Copy citation</button></div>
+          </li>
+        </ol>
+        <p class="footnote">* Equal contribution. Full list on <a href="https://scholar.google.com/citations?user=w-ggaoAAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a>.</p>
+      </div>
+    </section>
+
+    <section class="section" id="talks" aria-labelledby="h-talks">
+      <h2 id="h-talks">Talks and posters</h2>
+      <div class="section-body">
+        <ul class="talks">
+          <li><span class="kind">Talk</span><div><strong>ISRDS 2026, Granada.</strong> Hybrid memristor–magnetic tunnel junction Ising machine.</div></li>
+          <li><span class="kind">Talk</span><div><strong>Spinion Symposium 2025, Paris.</strong> Intrinsic annealing in a hybrid memristor–magnetic tunnel junction Ising machine.</div></li>
+          <li><span class="kind">Poster</span><div><strong>IISM 2026, Singapore.</strong></div></li>
+          <li><span class="kind">Poster</span><div><strong>ISMC 2025, Sofia.</strong> 5th International Symposium on Emerging Memory and Computing.</div></li>
+          <li><span class="kind">Poster</span><div><strong>PEPR Électronique scientific days, 2025 and 2026.</strong></div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="skills" aria-labelledby="h-skills">
+      <h2 id="h-skills">Skills</h2>
+      <div class="section-body">
+        <dl class="defs">
+          <dt>Probabilistic and in-memory computing</dt>
+          <dd>p-bit design and characterization, Gibbs sampling, simulated annealing, Ising/QUBO problem mapping, memristor program-and-verify, analog MAC.</dd>
+          <dt>Circuit design and HDL</dt>
+          <dd>Cadence Virtuoso, Spectre, Ocean, SPICE; Verilog-A device modeling; VHDL, SystemVerilog.</dd>
+          <dt>Test and characterization</dt>
+          <dd>Keysight B1530A, Lotus X, Keysight oscilloscopes, probe stations and probe cards, calibration, repeatability and reproducibility testing, hardware debugging.</dd>
+          <dt>PCB and interfaces</dt>
+          <dd>PCB design in Autodesk EAGLE and KiCad; SPI, I²C, UART and USB; mixed-signal board bring-up and debugging.</dd>
+          <dt>Programming</dt>
+          <dd>Python (NumPy, SciPy, PyVISA), C/C++, PyTorch, JAX (basic), Tcl, MATLAB, Linux, Git.</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section" id="education" aria-labelledby="h-education">
+      <h2 id="h-education">Education</h2>
+      <div class="section-body">
+        <ol class="timeline" reversed>
+          <li>
+            <span class="when">10/2023 – 11/2026</span>
+            <div>
+              <h3>PhD in Physics-Inspired Computing</h3>
+              <p class="org">CNRS and Université Paris-Saclay (C2N), Palaiseau, France</p>
+              <p>Thesis: Design of Hybrid Nanodevice/CMOS Systems for Optimization and AI Applications. Supervisors: Damien Querlioz and Louis Hutin. Defense in November 2026.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">09/2021 – 09/2023</span>
+            <div>
+              <h3>M2 Integration Circuits Systems (ICS)</h3>
+              <p class="org">Université Paris-Saclay, Gif-sur-Yvette, France</p>
+              <p>Grade 14.8/20, IDEX Scholarship. Coursework in analog/mixed-signal design (Cadence), ADC/DAC architectures and Verilog-A MTJ compact modeling.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">09/2016 – 08/2020</span>
+            <div>
+              <h3>B.Sc. Electrical Engineering</h3>
+              <p class="org">University of Malaya, Kuala Lumpur, Malaysia</p>
+              <p>CGPA 3.85/4.00, Dean’s Award six times.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="recognition" aria-labelledby="h-recognition">
+      <h2 id="h-recognition">Recognition</h2>
+      <div class="section-body">
+        <dl class="defs">
+          <dt>Press</dt>
+          <dd>
+            <ul>
+              <li><a href="https://www.leti-cea.com/cea-tech/leti/english/Pages/What%27s-On/Press%20release/PR-Nature-Communications-Paper.aspx" rel="noopener">“French Research Teams Demonstrate Hybrid Nanoelectronic Ising Machine for Combinatorial Optimization”</a><br><span class="muted">CEA-Leti press release on our <em>Nature Communications</em> paper, September 2026. Includes a statement from the two first authors.</span></li>
+              <li><a href="https://ieee-iedm.org/press/press-kit/#IEDM-Photos:~:text=Paper%2031.4%20Experimental%20Metropolis%2DAdjusted%20Langevin%20Learning" rel="noopener">IEDM 2026 press kit: paper 31.4</a><br><span class="muted">Our Langevin learning paper is one of the conference’s highlighted papers, with figures provided for press coverage.</span></li>
+            </ul>
+          </dd>
+          <dt>Awards</dt>
+          <dd>
+            <ul>
+              <li>IEDM 2026 publicity highlight</li>
+              <li>IDEX Scholarship, Université Paris-Saclay</li>
+              <li>Dean’s Award (six times), University of Malaya</li>
+              <li>Hult Prize, on-campus winner</li>
+              <li>Park of Future Hackathon, challenge winner</li>
+            </ul>
+          </dd>
+          <dt>Certifications</dt>
+          <dd>
+            <ul>
+              <li>Google Cloud Certified, Professional Cloud Architect</li>
+              <li>Google Cloud Certified, Generative AI Leader</li>
+              <li>HCIA Big Data</li>
+            </ul>
+          </dd>
+          <dt>Training</dt>
+          <dd>
+            <ul>
+              <li>DEEPLEARN 2024 Summer School, Porto</li>
+              <li>Tsinghua Global Summer Program, 2022</li>
+              <li>Zhejiang University SDG Global Summer School, 2022</li>
+            </ul>
+          </dd>
+          <dt>Languages</dt>
+          <dd>Bengali (native), English (C1), French (B1, DELF certified)</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="h-contact">
+      <h2 id="h-contact">Contact</h2>
+      <div class="section-body">
+        <p>The fastest way to reach me is email. I’m available from February 2027, based near Paris and open to relocating within Europe.</p>
+        <div class="email-row">
+          <a class="email-big" href="mailto:akibiftakher@gmail.com">akibiftakher@gmail.com</a>
+          <button type="button" class="btn btn-line" id="copy-email">Copy email</button>
+        </div>
+        <dl class="defs">
+          <dt>Phone</dt>
+          <dd><a href="tel:+33755018925">+33 7 55 01 89 25</a></dd>
+          <dt>Based in</dt>
+          <dd>Palaiseau, France</dd>
+          <dt>Profiles</dt>
+          <dd><a href="https://www.linkedin.com/in/akib-iftakher" rel="noopener">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=w-ggaoAAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a>, <a href="https://github.com/akib20" rel="noopener">GitHub</a></dd>
+          <dt>Referee</dt>
+          <dd>Dr. Damien Querlioz, Research Director, CNRS, Palaiseau, France<br><a href="mailto:damien.querlioz@universite-paris-saclay.fr">damien.querlioz@universite-paris-saclay.fr</a></dd>
+        </dl>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>Mohammed Akib Iftakher, C2N / CNRS and Université Paris-Saclay</span>
+    <span>Updated November 2026</span>
+  </div>
+</footer>
+
+<script>
+/* ---------- p-bit Ising machine: 3-coloring of a 10-node graph ---------- */
+(function () {
+  var NS = "http://www.w3.org/2000/svg";
+  var svg = document.getElementById("graph");
+  if (!svg) return;
+
+  var N = 10, C = 3;            // nodes, colors -> 30 p-bits (one-hot encoding)
+  var A = 1, B = 1;             // one-hot penalty, clash penalty
+  var SWEEPS = 180;             // length of one annealing run
+  var BMIN = 0.1, BMAX = 6;     // inverse temperature range
+  var RATE = 20;                // sweeps per second
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Petersen graph: 3-colorable, 15 edges
+  var cx = 200, cy = 166, R = 136, r = 64, pos = [], edges = [], nbr = [];
+  for (var i = 0; i < 5; i++) {
+    var a = (-90 + 72 * i) * Math.PI / 180;
+    pos[i] = [cx + R * Math.cos(a), cy + R * Math.sin(a)];
+    pos[i + 5] = [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+  }
+  for (i = 0; i < 5; i++) {
+    edges.push([i, (i + 1) % 5], [i, i + 5], [5 + i, 5 + (i + 2) % 5]);
+  }
+  for (i = 0; i < N; i++) nbr.push([]);
+  edges.forEach(function (e) { nbr[e[0]].push(e[1]); nbr[e[1]].push(e[0]); });
+
+  function el(name, attrs, parent) {
+    var n = document.createElementNS(NS, name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function arcPath(x, y, rad, a0, a1) {
+    var p0 = [x + rad * Math.cos(a0 * Math.PI / 180), y + rad * Math.sin(a0 * Math.PI / 180)];
+    var p1 = [x + rad * Math.cos(a1 * Math.PI / 180), y + rad * Math.sin(a1 * Math.PI / 180)];
+    return "M" + p0[0].toFixed(2) + " " + p0[1].toFixed(2) + " A" + rad + " " + rad + " 0 0 1 " + p1[0].toFixed(2) + " " + p1[1].toFixed(2);
+  }
+
+  var gE = el("g", {}, svg), gN = el("g", {}, svg);
+  var edgeEls = edges.map(function (e) {
+    return el("line", { "class": "edge", x1: pos[e[0]][0], y1: pos[e[0]][1], x2: pos[e[1]][0], y2: pos[e[1]][1] }, gE);
+  });
+  var coreEls = [], arcEls = [];
+  for (i = 0; i < N; i++) {
+    coreEls.push(el("circle", { "class": "core", cx: pos[i][0], cy: pos[i][1], r: 16 }, gN));
+    for (var c = 0; c < C; c++) {
+      var a0 = -90 + c * 120 + 9, a1 = -90 + (c + 1) * 120 - 9;
+      arcEls.push(el("path", { "class": "arc c" + c, d: arcPath(pos[i][0], pos[i][1], 24, a0, a1) }, gN));
+    }
+  }
+
+  var s = new Uint8Array(N * C), order = [];
+  for (i = 0; i < N * C; i++) order.push(i);
+
+  function randomize() { for (var k = 0; k < s.length; k++) s[k] = Math.random() < 0.5 ? 1 : 0; }
+
+  // One sweep of sequential p-bit (Gibbs) updates in random order:
+  // m_i = 1 with probability sigmoid(-beta * dE_i), where dE_i = E(m_i=1) - E(m_i=0)
+  function sweep(beta) {
+    for (var k = order.length - 1; k > 0; k--) {
+      var j = Math.floor(Math.random() * (k + 1)), t = order[k]; order[k] = order[j]; order[j] = t;
+    }
+    for (var q = 0; q < order.length; q++) {
+      var idx = order[q], v = (idx / C) | 0, col = idx % C, others = 0, same = 0;
+      for (var d = 0; d < C; d++) if (d !== col) others += s[v * C + d];
+      var nb = nbr[v];
+      for (var m = 0; m < nb.length; m++) same += s[nb[m] * C + col];
+      var dE = A * (2 * others - 1) + B * same;
+      s[idx] = Math.random() < 1 / (1 + Math.exp(beta * dE)) ? 1 : 0;
+    }
+  }
+
+  function measure() {
+    var bad = 0, clashes = 0, colorOf = [];
+    for (var v = 0; v < N; v++) {
+      var n = 0, which = -1;
+      for (var c = 0; c < C; c++) if (s[v * C + c]) { n++; which = c; }
+      colorOf[v] = n === 1 ? which : -1;
+      if (n !== 1) bad++;
+    }
+    var clashFlags = edges.map(function (e) {
+      for (var c = 0; c < C; c++) if (s[e[0] * C + c] && s[e[1] * C + c]) return true;
+      return false;
+    });
+    clashFlags.forEach(function (f) { if (f) clashes++; });
+    return { bad: bad, clashes: clashes, colorOf: colorOf, clashFlags: clashFlags };
+  }
+
+  // UI
+  var statusEl = document.getElementById("solver-status");
+  var rClash = document.getElementById("r-clash"), rBad = document.getElementById("r-bad");
+  var rSweep = document.getElementById("r-sweep"), rBeta = document.getElementById("r-beta");
+  var traceEl = document.getElementById("trace-line");
+  var slider = document.getElementById("beta");
+  var annealBtn = document.getElementById("anneal"), pauseBtn = document.getElementById("pause");
+
+  var mode = "idle", running = false, t = 0, total = 0, beta = BMIN, acc = 0, last = null;
+  var trace = [], visible = true, lastStatus = "", solvedAt = null;
+
+  function sliderToBeta(v) { return BMIN * Math.pow(BMAX / BMIN, v / 100); }
+  function betaToSlider(b) { return Math.round(100 * Math.log(b / BMIN) / Math.log(BMAX / BMIN)); }
+  function plural(n, one, many) { return n + " " + (n === 1 ? one : many); }
+  function setStatus(text) { if (text !== lastStatus) { statusEl.textContent = text; lastStatus = text; } }
+  function setPause() { pauseBtn.textContent = running ? "Pause" : "Resume"; }
+
+  function render() {
+    var m = measure();
+    for (var v = 0; v < N; v++) {
+      var cls = "core" + (m.colorOf[v] >= 0 ? " is" + m.colorOf[v] : "");
+      if (coreEls[v].getAttribute("class") !== cls) coreEls[v].setAttribute("class", cls);
+      for (var c = 0; c < C; c++) arcEls[v * C + c].classList.toggle("on", !!s[v * C + c]);
+    }
+    m.clashFlags.forEach(function (f, k) { edgeEls[k].classList.toggle("clash", f); });
+    rClash.textContent = m.clashes;
+    rBad.textContent = m.bad;
+    rSweep.textContent = total;
+    rBeta.textContent = beta.toFixed(2);
+    slider.setAttribute("aria-valuetext", "beta " + beta.toFixed(2));
+
+    var maxE = 16, d = "";
+    for (var k = 0; k < trace.length; k++) {
+      var y = 39.5 - Math.min(trace[k], maxE) / maxE * 37;
+      d += (k ? "L" : "M") + k + " " + y.toFixed(2);
+    }
+    traceEl.setAttribute("d", d);
+    return m;
+  }
+
+  function finish() {
+    running = false; setPause();
+    var m = measure();
+    if (m.bad === 0 && m.clashes === 0) {
+      setStatus("Solved: a valid 3-coloring, reached at sweep " + (solvedAt || total) + ".");
+    } else {
+      var parts = [];
+      if (m.clashes) parts.push(plural(m.clashes, "clash", "clashes"));
+      if (m.bad) parts.push(plural(m.bad, "undecided node", "undecided nodes"));
+      setStatus("Frozen in a local minimum with " + parts.join(" and ") + ". Anneal again to retry.");
+    }
+  }
+
+  function step() {
+    if (mode === "anneal") {
+      beta = BMIN * Math.pow(BMAX / BMIN, t / (SWEEPS - 1));
+      slider.value = betaToSlider(beta);
+    }
+    sweep(beta);
+    total++;
+    var m = measure();
+    trace.push(m.bad + m.clashes);
+    if (m.bad + m.clashes === 0) { if (solvedAt === null) solvedAt = total; } else solvedAt = null;
+    if (trace.length > 180) trace.shift();
+    if (mode === "anneal") {
+      t++;
+      if (t >= SWEEPS) finish();
+    }
+  }
+
+  function frame(ts) {
+    if (last === null) last = ts;
+    var dt = Math.min(0.1, (ts - last) / 1000);
+    last = ts;
+    if (running && visible && !document.hidden) {
+      acc += dt * RATE;
+      var n = Math.floor(acc);
+      acc -= n;
+      while (n-- > 0 && running) step();
+      render();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function startAnneal() {
+    randomize(); t = 0; total = 0; trace = []; acc = 0; solvedAt = null;
+    beta = BMIN; slider.value = 0;
+    mode = "anneal"; running = true; setPause();
+    setStatus("Annealing: β rises from hot to cold.");
+    annealBtn.textContent = "Anneal again";
+    render();
+  }
+
+  annealBtn.addEventListener("click", startAnneal);
+  pauseBtn.addEventListener("click", function () {
+    if (running) {
+      running = false;
+      setStatus("Paused at sweep " + total + ".");
+    } else {
+      if (mode !== "anneal" || t >= SWEEPS) {
+        mode = "manual";
+        setStatus("Manual temperature. Drag left to heat, right to cool.");
+      } else {
+        setStatus("Annealing: β rises from hot to cold.");
+      }
+      running = true;
+    }
+    setPause();
+  });
+  slider.addEventListener("input", function () {
+    beta = sliderToBeta(+slider.value);
+    if (mode !== "manual") setStatus("Manual temperature. Drag left to heat, right to cool.");
+    mode = "manual"; running = true; setPause();
+    annealBtn.textContent = "Anneal again";
+    render();
+  });
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; }, { threshold: 0.1 }).observe(svg);
+  }
+
+  randomize();
+  render();
+  setPause();
+  if (reduceMotion) {
+    running = false; setPause();
+    pauseBtn.textContent = "Run";
+  } else {
+    startAnneal();
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* ---------- Clipboard helper ---------- */
+function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+  return new Promise(function (resolve, reject) {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy") ? resolve() : reject(); } catch (e) { reject(e); }
+    document.body.removeChild(ta);
+  });
+}
+function flash(btn, done, label) {
+  btn.textContent = done;
+  clearTimeout(btn._t);
+  btn._t = setTimeout(function () { btn.textContent = label; }, 1800);
+}
+
+/* ---------- Publications: filters and citation copy ---------- */
+(function () {
+  var pubs = [].slice.call(document.querySelectorAll(".pub"));
+  var buttons = [].slice.call(document.querySelectorAll("[data-filter]"));
+  var countEl = document.getElementById("pub-count");
+  function matches(p, f) {
+    return f === "all" || p.dataset.type === f || (f === "cofirst" && p.dataset.cofirst === "true");
+  }
+  buttons.forEach(function (b) {
+    var n = pubs.filter(function (p) { return matches(p, b.dataset.filter); }).length;
+    b.querySelector(".count").textContent = n;
+  });
+  function apply(f) {
+    var shown = 0;
+    pubs.forEach(function (p) { var ok = matches(p, f); p.hidden = !ok; if (ok) shown++; });
+    buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.filter === f)); });
+    countEl.textContent = "Showing " + shown + " of " + pubs.length + " publications.";
+  }
+  buttons.forEach(function (b) { b.addEventListener("click", function () { apply(b.dataset.filter); }); });
+  apply("all");
+
+  document.querySelectorAll("[data-jump]").forEach(function (a) {
+    a.addEventListener("click", function () { apply(a.dataset.jump); });
+  });
+
+  pubs.forEach(function (p) {
+    var btn = p.querySelector(".copy-cite");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var authors = p.querySelector(".pub-authors").textContent.trim();
+      var title = p.querySelector(".pub-title").textContent.trim();
+      var vEl = p.querySelector(".pub-venue").cloneNode(true);
+      vEl.querySelectorAll(".pub-note").forEach(function (n) { n.remove(); });
+      var venue = vEl.textContent.trim().replace(/\.$/, "");
+      var cite = authors + ", \u201C" + title + ",\u201D " + venue + ".";
+      if (p.dataset.doi) cite += " doi:" + p.dataset.doi;
+      else if (p.dataset.arxiv) cite += " arXiv:" + p.dataset.arxiv;
+      copyText(cite).then(function () { flash(btn, "Copied", "Copy citation"); },
+                          function () { flash(btn, "Copy failed: select the text instead", "Copy citation"); });
+    });
+  });
+})();
+
+/* ---------- Copy email ---------- */
+(function () {
+  var b = document.getElementById("copy-email");
+  if (!b) return;
+  b.addEventListener("click", function () {
+    copyText("akibiftakher@gmail.com").then(function () { flash(b, "Copied", "Copy email"); },
+                                           function () { flash(b, "Copy failed", "Copy email"); });
+  });
+})();
+
+/* ---------- Highlight the current section in the nav ---------- */
+(function () {
+  if (!("IntersectionObserver" in window)) return;
+  var links = {};
+  document.querySelectorAll(".nav ul a").forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
+  var current = null;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var id = e.target.id;
+      if (id === "profile") id = null;
+      if (id === "recognition") id = "education";
+      if (current) current.removeAttribute("aria-current");
+      current = id && links[id] ? links[id] : null;
+      if (current) current.setAttribute("aria-current", "true");
+    });
+  }, { rootMargin: "-40% 0px -55% 0px" });
+  document.querySelectorAll("main section[id]").forEach(function (s) { io.observe(s); });
+})();
+</script>
+</body>
+</html>
